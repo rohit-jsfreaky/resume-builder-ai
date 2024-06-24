@@ -7,39 +7,30 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateResume } from "@/actions/resumeAction";
 
-const formField = {
-  title: "",
-  companyName: "",
-  city: "",
-  state: "",
-  startDate: "",
-  endDate: "",
-  workSummery: "",
-};
-
 const ExperienceForm = () => {
-  const [experienceList, setExperienceList] = useState([{
-    title: "",
-    companyName: "",
-    city: "",
-    state: "",
-    startDate: "",
-    endDate: "",
-    workSummery: "",
-  }]);
+  const [experienceList, setExperienceList] = useState([
+    {
+      title: "",
+      companyName: "",
+      city: "",
+      state: "",
+      startDate: "",
+      endDate: "",
+      workSummery: "",
+    },
+  ]);
 
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const { resumeId } = useParams();
   const dispatch = useDispatch();
 
   const handleChange = (index, e) => {
-    const newEntries = [...experienceList]
+    const newEntries = [...experienceList];
     const { name, value } = e.target;
 
     newEntries[index][name] = value;
     setExperienceList(newEntries);
   };
-
 
   useEffect(() => {
     if (resumeInfo) {
@@ -57,15 +48,19 @@ const ExperienceForm = () => {
     setResumeInfo({ ...resumeInfo, Experience: experienceList });
   }, [experienceList]);
 
-
   const addNewExperience = () => {
-    setExperienceList([...experienceList, { title: "",
-      companyName: "",
-      city: "",
-      state: "",
-      startDate: "",
-      endDate: "",
-      workSummery: "",}]);
+    setExperienceList([
+      ...experienceList,
+      {
+        title: "",
+        companyName: "",
+        city: "",
+        state: "",
+        startDate: "",
+        endDate: "",
+        workSummery: "",
+      },
+    ]);
   };
 
   const removeExperience = () => {
