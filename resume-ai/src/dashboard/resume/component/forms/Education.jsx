@@ -22,7 +22,7 @@ const Education = () => {
   const { resumeId } = useParams();
   const dispatch = useDispatch();
 
-  const hanldleChange = (e, index) => {
+  const hanldleChange = (e, index) => {s
     const newEntries = educationalList.slice();
     const { name, value } = e.target;
 
@@ -36,9 +36,9 @@ const Education = () => {
     // console.log(experinceList);
   }, [educationalList]);
 
-  useEffect(()=>{
-    resumeInfo&&setEducationalList(resumeInfo?.education)
-  },[])
+  useEffect(() => {
+    resumeInfo && setEducationalList(resumeInfo?.education);
+  }, []);
 
   const AddNewEducation = () => {
     setEducationalList([

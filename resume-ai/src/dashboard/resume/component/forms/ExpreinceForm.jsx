@@ -1,4 +1,3 @@
-// import { title } from 'process';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React, { useContext, useEffect, useState } from "react";
@@ -17,64 +16,59 @@ const formField = {
   endDate: "",
   workSummery: "",
 };
-const ExpreinceForm = () => {
-  const [experinceList, setExperienceList] = useState([formField]);
+
+const ExperienceForm = () => {
+  const [experienceList, setExperienceList] = useState([formField]);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const { resumeId } = useParams();
   const dispatch = useDispatch();
 
   const handleChange = (index, e) => {
-    const newEntries = experinceList.slice();
+    const newEntries = experienceList.slice();
     const { name, value } = e.target;
 
     newEntries[index][name] = value;
-
-    setExperienceList(newEntries);
-  };
-
-  useEffect(()=>{
-    resumeInfo&&setExperienceList(resumeInfo?.Experience)
-  },[resumeInfo])
-
-  const hanldeRichTextEditor = (e, name, index) => {
-    const newEntries = experinceList.slice();
-    newEntries[index][name] = e.target.value;
-
     setExperienceList(newEntries);
   };
 
   useEffect(() => {
-    setResumeInfo({ ...resumeInfo, experience: experinceList });
-    // console.log(experinceList);
-    
-  }, [experinceList]);
+    resumeInfo && setExperienceList(resumeInfo?.Experience);
+  }, []);
 
-  const AddNewExperience = () => {
-    setExperienceList([...experinceList, formField]);
+  const handleRichTextEditor = (e, name, index) => {
+    const newEntries = experienceList.slice();
+    newEntries[index][name] = e.target.value;
+    setExperienceList(newEntries);
   };
 
-  const RemoveExperince = () => {
-    setExperienceList((experinceList) => experinceList.slice(0, -1));
+  useEffect(() => {
+    setResumeInfo({ ...resumeInfo, experience: experienceList });
+  }, [experienceList]);
+
+  const addNewExperience = () => {
+    setExperienceList([...experienceList, { ...formField }]);
   };
 
-  const onSave = (e)=>{
-    e.preventDefault;
+  const removeExperience = () => {
+    if (experienceList.length > 1) {
+      setExperienceList(experienceList.slice(0, -1));
+    }
+  };
 
-    console.log(experinceList)
-
-    const experienceData = {Experience : experinceList  , resumeId};
-
-    dispatch(updateResume(experienceData))
-  }
+  const onSave = (e) => {
+    e.preventDefault();
+    const experienceData = { Experience: experienceList, resumeId };
+    dispatch(updateResume(experienceData));
+  };
 
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-        <h2 className="font-bold text-lg">Profession Experience</h2>
+        <h2 className="font-bold text-lg">Professional Experience</h2>
         <p>Add Your previous job experience</p>
 
-        <form >
-          {experinceList.map((field, index) => (
+        <form onSubmit={onSave}>
+          {experienceList.map((field, index) => (
             <div key={index}>
               <div className="grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg">
                 <div>
@@ -83,10 +77,8 @@ const ExpreinceForm = () => {
                   </label>
                   <Input
                     name="title"
-                    onChange={(e) => {
-                      handleChange(index, e);
-                    }}
-                    defaultValue={field?.title}
+                    onChange={(e) => handleChange(index, e)}
+                    defaultValue={field.title}
                   />
                 </div>
                 <div>
@@ -95,10 +87,8 @@ const ExpreinceForm = () => {
                   </label>
                   <Input
                     name="companyName"
-                    onChange={(e) => {
-                      handleChange(index, e);
-                    }}
-                    defaultValue={field?.companyName}
+                    onChange={(e) => handleChange(index, e)}
+                    defaultValue={field.companyName}
                   />
                 </div>
                 <div>
@@ -107,10 +97,8 @@ const ExpreinceForm = () => {
                   </label>
                   <Input
                     name="city"
-                    onChange={(e) => {
-                      handleChange(index, e);
-                    }}
-                    defaultValue={field?.city}
+                    onChange={(e) => handleChange(index, e)}
+                    defaultValue={field.city}
                   />
                 </div>
                 <div>
@@ -119,10 +107,8 @@ const ExpreinceForm = () => {
                   </label>
                   <Input
                     name="state"
-                    onChange={(e) => {
-                      handleChange(index, e);
-                    }}
-                    defaultValue={field?.state}
+                    onChange={(e) => handleChange(index, e)}
+                    defaultValue={field.state}
                   />
                 </div>
                 <div>
@@ -131,11 +117,9 @@ const ExpreinceForm = () => {
                   </label>
                   <Input
                     name="startDate"
-                    onChange={(e) => {
-                      handleChange(index, e);
-                    }}
+                    onChange={(e) => handleChange(index, e)}
                     type="date"
-                    defaultValue={field?.startDate}
+                    defaultValue={field.startDate}
                   />
                 </div>
                 <div>
@@ -144,20 +128,18 @@ const ExpreinceForm = () => {
                   </label>
                   <Input
                     name="endDate"
-                    onChange={(e) => {
-                      handleChange(index, e);
-                    }}
+                    onChange={(e) => handleChange(index, e)}
                     type="date"
-                    defaultValue={field?.endDate}
+                    defaultValue={field.endDate}
                   />
                 </div>
                 <div className="col-span-2">
                   <RichTextEditor
                     index={index}
-                    onRichTextEdiorChange={(e) => {
-                      hanldeRichTextEditor(e, "workSummery", index);
-                    }}
-                    defaultValue = {field?.workSummery}
+                    onRichTextEditorChange={(e) =>
+                      handleRichTextEditor(e, "workSummery", index)
+                    }
+                    defaultValue={field.workSummery}
                   />
                 </div>
               </div>
@@ -169,21 +151,20 @@ const ExpreinceForm = () => {
             <Button
               variant="outline"
               className="text-primary"
-              onClick={AddNewExperience}
-              type = "button"
+              onClick={addNewExperience}
+              type="button"
             >
               + Add More Experience
             </Button>
             <Button
               variant="outline"
               className="text-primary"
-              onClick={RemoveExperince}
-              type = "button"
+              onClick={removeExperience}
+              type="button"
             >
               - Remove
             </Button>
           </div>
-
           <Button onClick={onSave}>Save</Button>
         </div>
       </div>
@@ -191,4 +172,4 @@ const ExpreinceForm = () => {
   );
 };
 
-export default ExpreinceForm;
+export default ExperienceForm;
