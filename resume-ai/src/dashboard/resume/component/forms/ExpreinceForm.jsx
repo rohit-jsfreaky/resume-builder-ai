@@ -18,21 +18,33 @@ const formField = {
 };
 
 const ExperienceForm = () => {
-  const [experienceList, setExperienceList] = useState([formField]);
+  const [experienceList, setExperienceList] = useState([{
+    title: "",
+    companyName: "",
+    city: "",
+    state: "",
+    startDate: "",
+    endDate: "",
+    workSummery: "",
+  }]);
+
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const { resumeId } = useParams();
   const dispatch = useDispatch();
 
   const handleChange = (index, e) => {
-    const newEntries = experienceList.slice();
+    const newEntries = [...experienceList]
     const { name, value } = e.target;
 
     newEntries[index][name] = value;
     setExperienceList(newEntries);
   };
 
+
   useEffect(() => {
-    resumeInfo && setExperienceList(resumeInfo?.Experience);
+    if (resumeInfo) {
+      setExperienceList(resumeInfo?.Experience || []);
+    }
   }, []);
 
   const handleRichTextEditor = (e, name, index) => {
@@ -42,11 +54,18 @@ const ExperienceForm = () => {
   };
 
   useEffect(() => {
-    setResumeInfo({ ...resumeInfo, experience: experienceList });
+    setResumeInfo({ ...resumeInfo, Experience: experienceList });
   }, [experienceList]);
 
+
   const addNewExperience = () => {
-    setExperienceList([...experienceList, { ...formField }]);
+    setExperienceList([...experienceList, { title: "",
+      companyName: "",
+      city: "",
+      state: "",
+      startDate: "",
+      endDate: "",
+      workSummery: "",}]);
   };
 
   const removeExperience = () => {
@@ -136,7 +155,7 @@ const ExperienceForm = () => {
                 <div className="col-span-2">
                   <RichTextEditor
                     index={index}
-                    onRichTextEditorChange={(e) =>
+                    onRichTextEdiorChange={(e) =>
                       handleRichTextEditor(e, "workSummery", index)
                     }
                     defaultValue={field.workSummery}

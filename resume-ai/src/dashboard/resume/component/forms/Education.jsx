@@ -22,7 +22,7 @@ const Education = () => {
   const { resumeId } = useParams();
   const dispatch = useDispatch();
 
-  const hanldleChange = (e, index) => {s
+  const hanldleChange = (e, index) => {
     const newEntries = educationalList.slice();
     const { name, value } = e.target;
 
@@ -33,12 +33,7 @@ const Education = () => {
 
   useEffect(() => {
     setResumeInfo({ ...resumeInfo, education: educationalList });
-    // console.log(experinceList);
   }, [educationalList]);
-
-  useEffect(() => {
-    resumeInfo && setEducationalList(resumeInfo?.education);
-  }, []);
 
   const AddNewEducation = () => {
     setEducationalList([
@@ -55,7 +50,9 @@ const Education = () => {
   };
 
   const RemoveEducation = () => {
-    setEducationalList((educationalList) => educationalList.slice(0, -1));
+    if (educationalList.length > 1) {
+      setEducationalList((educationalList) => educationalList.slice(0, -1));
+    }
   };
 
   const onSave = () => {
