@@ -8,7 +8,7 @@ import {
   RedoDotIcon,
   Youtube,
 } from "lucide-react";
-import React, { useReducer } from "react";
+import React from "react";
 import Card from "./Card";
 import { useNavigate } from "react-router-dom";
 
@@ -25,27 +25,28 @@ const Home = () => {
   };
 
   const handleSign = () => {
-    console.log(isSignedIn)
+    console.log(isSignedIn);
     if (!isSignedIn) {
       navigate("/auth/sign-in");
     }
   };
+
   return (
     <div>
       <Header />
-      <div className="flex flex-col justify-center items-center gap-5 pt-32">
+      <div className="flex flex-col justify-center items-center gap-5 pt-16 md:pt-32 px-4">
         <div>
-          <h1 className="text-6xl font-bold">
+          <h1 className="text-3xl md:text-6xl font-bold text-center">
             Build Your Resume <span className="text-primary">With AI</span>
           </h1>
         </div>
         <div>
-          <h3 className="text-gray-400 font-bold text-lg mb-4">
+          <h3 className="text-gray-400 font-bold text-base md:text-lg mb-4 text-center">
             Effortlessly Craft a Standout Resume With our AI-Powered Builder
           </h3>
         </div>
 
-        <div className="flex gap-4 mb-10">
+        <div className="flex flex-col md:flex-row gap-4 mb-10">
           <Button onClick={handleStarted}>
             Get Started <ArrowRight />
           </Button>
@@ -56,57 +57,51 @@ const Home = () => {
           )}
         </div>
 
-        <div className="text-lg text-gray-400 font-semibold mb-6">
+        <div className="text-base md:text-lg text-gray-400 font-semibold mb-6 text-center">
           <h3>FEATURED IN</h3>
         </div>
 
-        <div className="flex text-gray-500 font-bold text-2xl items-center gap-20">
+        <div className="flex flex-wrap justify-center text-gray-500 font-bold text-lg md:text-2xl items-center gap-10 md:gap-20">
           <h1 className="flex items-center gap-1">
             <span>
-              <Youtube size={"40px"} />
+              <Youtube size={"30px"} md:size={"40px"} />
             </span>
             YouTube
           </h1>
           <h1 className="flex items-center gap-1">
-            <PackageIcon size={"40px"} /> Product Hunt
+            <PackageIcon size={"30px"} md:size={"40px"} /> Product Hunt
           </h1>
           <h1 className="flex items-center gap-1">
-            <RedoDotIcon size={"40px"} /> reddit{" "}
+            <RedoDotIcon size={"30px"} md:size={"40px"} /> reddit
           </h1>
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center">
-        <div className="mt-20 mb-2">
-          <h1 className="text-3xl font-bold">How it Works?</h1>
+      <div className="flex flex-col justify-center items-center px-4">
+        <div className="mt-16 md:mt-20 mb-2">
+          <h1 className="text-2xl md:text-3xl font-bold">How it Works?</h1>
         </div>
 
         <div>
-          <p className="text-gray-400 font-bold text-md">
-            Build Your Resume in just 3 simplar easy step
+          <p className="text-gray-400 font-bold text-sm md:text-md text-center">
+            Build Your Resume in just 3 simple easy steps
           </p>
         </div>
 
-        <div className="flex gap-4 mt-6 mb-10">
+        <div className="flex flex-col md:flex-row gap-4 mt-6 mb-10">
           <Card
             title="Choose Your Resume name"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus,
-          dolor odio modi harum odit ad voluptatum quos possimus omnis ea,
-          perferendis,"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, dolor odio modi harum odit ad voluptatum quos possimus omnis ea, perferendis."
             iconName="react"
           />
           <Card
             title="Edit Your Details"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus,
-          dolor odio modi harum odit ad voluptatum quos possimus omnis ea,
-          perferendis,"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, dolor odio modi harum odit ad voluptatum quos possimus omnis ea, perferendis."
             iconName="pen"
           />
           <Card
             title="Download/Share Your Resume"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus,
-          dolor odio modi harum odit ad voluptatum quos possimus omnis ea,
-          perferendis,"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, dolor odio modi harum odit ad voluptatum quos possimus omnis ea, perferendis."
             iconName="share"
           />
         </div>
